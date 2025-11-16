@@ -1,26 +1,303 @@
-@import "tailwindcss";
-
+/* --- Global Reset & Frog Palette --- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Primary Frog Green (Darker) */
+  --color-primary-green: #0e8557; 
+  /* Secondary Lily Pad Green (Lighter/Accent) */
+  --color-secondary-green: #4ac36e;
+  /* Water/Background Blue */
+  --color-water-blue: #E0F7FA;
+  /* Dark Text */
+  --color-text-dark: #333;
+  /* White/Light Background */
+  --color-background-light: #FFFFFF;
+  /* Emergency Red */
+  --color-emergency-red: #F44336;
+  /* Border Radius for a smooth, natural look */
+  --border-radius-smooth: 12px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Arial', sans-serif;
+  background-color: var(--color-water-blue); /* Light water background */
+  color: var(--color-text-dark);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* Start content from the top */
 }
+
+/* --- App Wrapper (Mobile Container) --- */
+.wrapper {
+  width: 100%;
+  max-width: 450px; /* Max width for mobile/tablet view */
+  background-color: var(--color-background-light);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  box-sizing: border-box;
+  min-height: 100vh; /* Full height on mobile */
+}
+
+/* --- Top Section: Image and Title --- */
+.top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.top h2 {
+  color: var(--color-primary-green);
+  font-size: 1.5em;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.frg {
+  width: 150px;
+  height: 150px;
+ /* Make the image look like it's on a lily pad */
+  object-fit: cover;
+
+}
+
+.selectedBox {
+  font-size: 2.5em;
+  font-weight: bold;
+  color: var(--color-background-light);
+  background-color: var(--color-primary-green);
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Grid Section: Buttons --- */
+.grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.row {
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+
+/* Base style for all buttons in the grid */
+.btn, .upload {
+  flex: 1;
+  padding: 15px 10px;
+  font-size: 1.1em;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  border-radius: var(--border-radius-smooth);
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn {
+  background-color: var(--color-secondary-green);
+  color: white;
+}
+
+.btn:hover {
+  background-color: var(--color-primary-green);
+  color: var(--color-background-light);
+
+}
+
+.btn.active {
+  background-color: var(--color-primary-green);
+  color: var(--color-background-light);
+  border: 3px solid var(--color-secondary-green);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.upload {
+  background-color: var(--color-primary-green);
+  color: var(--color-background-light);
+  font-weight: bold;
+}
+
+.upload:hover {
+  background-color: #66BB6A; /* Slightly lighter green on hover - REMOVED TRANSFORM */
+}
+
+/* --- Bottom Actions: Calendar and Emergency --- */
+.bottom-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 10px 0;
+  border-top: 1px solid #EEE;
+}
+
+.calendar-btn, .emergency-btn {
+  flex: 1;
+  padding: 15px;
+  font-size: 1.1em;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius-smooth);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-btn {
+  background-color: var(--color-secondary-green);
+  color: white;
+}
+
+.calendar-btn:hover {
+  background-color: #9CCC65;
+}
+
+.emergency-btn {
+  background-color: var(--color-emergency-red);
+  color: var(--color-background-light);
+}
+
+.emergency-btn:hover {
+  background-color: #E53935;
+}
+
+/* --- Calendar View Page --- */
+.calendar-page {
+  width: 100%;
+  max-width: 450px;
+  padding: 20px;
+  background-color: var(--color-background-light);
+  min-height: 100vh;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-page h2, .calendar-page h3 {
+  text-align: center;
+  color: var(--color-text-dark);
+}
+
+.calendar-page h3 {
+  margin-bottom: 20px;
+  color: var(--color-primary-green);
+}
+
+.back-button {
+  background: none;
+  border: none;
+  color: var(--color-primary-green);
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 5px 0;
+  margin-bottom: 15px;
+  display: block;
+  transition: color 0.2s;
+}
+.back-button:hover {
+  color: var(--color-secondary-green);
+}
+
+.print-button {
+  display: block;
+  width: 100%;
+  margin-top: 25px;
+  padding: 12px;
+  background-color: var(--color-primary-green);
+  color: var(--color-background-light);
+  border: none;
+  border-radius: var(--border-radius-smooth);
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.print-button:hover {
+  background-color: #66BB6A;
+}
+
+/* --- react-calendar Overrides (Frog Theme) --- */
+.react-calendar {
+  width: 100%;
+  max-width: 100%;
+  border: none;
+  border-radius: var(--border-radius-smooth);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  background-color: var(--color-background-light);
+}
+
+/* Navigation buttons (e.g., month/year change) */
+.react-calendar__navigation button {
+  color: var(--color-primary-green);
+  font-weight: bold;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #F1F8E9; /* Very light green hover */
+  border-radius: 8px;
+}
+
+/* Day tiles */
+.react-calendar__tile {
+  padding: 8px 0;
+  position: relative;
+  text-align: center;
+  transition: background-color 0.2s;
+}
+
+.react-calendar__tile:enabled:hover {
+  background-color: #E8F5E9; /* Light green hover */
+  border-radius: 6px;
+}
+
+/* Today's tile */
+.react-calendar__tile--now {
+  background: var(--color-secondary-green) !important;
+  color: var(--color-text-dark) !important;
+  border-radius: 6px;
+}
+
+/* Selected tile */
+.react-calendar__tile--active {
+  background: var(--color-primary-green) !important;
+  color: var(--color-background-light) !important;
+  border-radius: 6px;
+}
+
+/* The small number showing the pain level */
+.calendar-entry {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 18px;
+  height: 18px;
+  line-height: 18px;
+  font-size: 0.7em;
+  font-weight: bold;
+  background-color: var(--color-emergency-red); /* Highlight entries */
+  color: var(--color-background-light);
+  border-radius: 50%;
+  /* Make sure it sits on top of the tile's background color */
+  z-index: 10;
+}
+
+/* Adjusting the entry color for low pain (0-2) to be green */
+.react-calendar__tile[aria-label*="0"] .calendar-entry,
+.react-calendar__tile[aria-label*="1"] .calendar-entry,
+.react-calendar__tile[aria-label*="2"] .calendar-entry {
+    background-color: var(--color-primary-green);
+}
+/* Note: This attribute selector relies on the browser rendering the date in the aria-label which is typical but not guaranteed for all dates. */
